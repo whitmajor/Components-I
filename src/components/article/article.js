@@ -95,16 +95,61 @@ const data = [
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
 
-  <div class="article">
-    <h2>{title of the article}</h2>
+  <div class="article"> //article
+    <h2>{title of the article}</h2> 
     <p class="date">{date of the article}</p>
 
     {three separate paragraph elements}
 
-    <span class="expandButton">+</span>
+    <span class="expandButton"> + </span>
   </div>
+*/
+const articles1 = document.querySelector(".articles")
 
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
+function articleMaker(articleObj){
+  const article = document.createElement('div')
+  const articleTitle = document.createElement('h2')
+  const date = document.createElement('p')
+  const articleP = document.createElement('p')
+  const articleP2 = document.createElement('p')
+  const articleP3 = document.createElement('p')
+  const articlespan = document.createElement('span')
+
+  
+  article.appendChild(articleTitle)
+  article.appendChild(date)
+  article.appendChild(articleP)
+  article.appendChild(articleP)
+  article.appendChild(articleP2)
+  article.appendChild(articleP3)
+  article.appendChild(articlespan)
+
+  article.classList.add("article")
+  date.classList.add("date")
+  articlespan.classList.add("expandButton")
+
+  articleTitle.textContent= articleObj.title;
+  date.textContent = articleObj.date;
+  articleP.textContent = articleObj.firstParagraph;
+  articleP2.textContent = articleObj.secondParagraph;
+  articleP3.textContent = articleObj.thirdParagraph;
+  articlespan.textContent = "+"
+ console.log(articleObj)
+
+  articlespan.addEventListener("click", ()=>{
+    article.classList.toggle('article-open')
+  })
+  return article
+}
+  
+const articleElem = data.map(obj =>{
+  return articleMaker(obj)
+})
+articleElem.forEach(obj =>{
+ articles1.appendChild(obj)
+
+})
+ /* Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
   Step 3: Don't forget to return something from your function!
